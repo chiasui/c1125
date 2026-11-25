@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>分子量實驗室大挑戰</title>
+<style>
+:root{--bg:#eef6fb;--card:#fff;--ink:#1d2b36;--sub:#5b6b78;--pri:#1f78b4;--pri-ink:#fff;--ok:#2e8b57;--okbg:#e3f5ea;--bad:#d1453b;--badbg:#fdeceb;--line:#cfdde8;--cell:#dbe7ef;--warn:#c0392b;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a22;--card:#192631;--ink:#e8f0f6;--sub:#9db0be;--pri:#4aa3df;--pri-ink:#07131c;--ok:#5ccf92;--okbg:#17352a;--bad:#ff7b72;--badbg:#3b1f1e;--line:#2c4050;--cell:#2a3f4e;--warn:#ff7b72;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101a22;--card:#192631;--ink:#e8f0f6;--sub:#9db0be;--pri:#4aa3df;--pri-ink:#07131c;--ok:#5ccf92;--okbg:#17352a;--bad:#ff7b72;--badbg:#3b1f1e;--line:#2c4050;--cell:#2a3f4e;--warn:#ff7b72;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px}
+h1{font-size:28px;margin:0 0 6px;text-align:center}
+.hero{text-align:center;font-size:56px}
+.sub{color:var(--sub)}
+button{font:inherit;font-size:18px;font-weight:700;border:0;border-radius:12px;padding:12px 22px;background:var(--pri);color:var(--pri-ink);cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.big{display:block;margin:18px auto 0;font-size:20px;padding:14px 34px}
+ul{padding-left:20px}
+.hide{display:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#timer{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums}
+#timer.low{color:var(--warn);animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:.35}}
+.stage{font-size:14px;padding:3px 10px;border-radius:99px;background:var(--cell)}
+.prog{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:10px}
+.prog i{height:14px;border-radius:4px;background:var(--cell)}
+.prog i.ok{background:var(--ok)}.prog i.bad{background:var(--bad)}.prog i.cur{outline:2px solid var(--pri)}
+.q{text-align:center}
+.qn{font-size:15px;color:var(--sub)}
+.zh{font-size:40px;font-weight:800;margin:4px 0}
+.alias{font-size:14px;color:var(--sub);min-height:21px}
+.fm{font-size:34px;font-weight:700;margin:6px 0 14px;font-family:Georgia,"Times New Roman",serif;color:var(--pri)}
+.row{display:flex;gap:10px;justify-content:center}
+input{font:inherit;font-size:24px;width:170px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+input:focus{outline:none;border-color:var(--pri)}
+#fb{margin-top:14px;padding:12px;border-radius:12px;text-align:left;font-size:17px}
+#fb.ok{background:var(--okbg);color:var(--ok)}#fb.bad{background:var(--badbg);color:var(--bad)}
+#fb b{display:block}
+#fb .p{color:var(--ink);font-weight:400;margin-top:4px}
+#nx{margin-top:12px}
+.tbl{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;text-align:center;font-size:15px}
+.tbl div{background:var(--cell);border-radius:8px;padding:4px 0}
+.tbl small{display:block;color:var(--sub);font-size:12px}
+.tt{font-size:14px;color:var(--sub);margin-bottom:6px}
+.score{font-size:48px;font-weight:800;text-align:center}
+.grade{font-size:26px;text-align:center;font-weight:700}
+.stats{display:flex;justify-content:center;gap:22px;margin:10px 0;flex-wrap:wrap;color:var(--sub)}
+.stats b{color:var(--ink)}
+.wr{border-top:1px solid var(--line);padding:8px 0;font-size:16px}
+@media (max-width:480px){.zh{font-size:32px}.fm{font-size:28px}.tbl{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<main>
+
+<section id="s0" class="card">
+  <div class="hero">🧪</div>
+  <h1>分子量實驗室大挑戰</h1>
+  <p class="sub" style="text-align:center">小小化學家，準備好了嗎？</p>
+  <ul>
+    <li>在 <b>5 分鐘</b>內完成 <b>10 個關卡</b>，由簡單到困難。</li>
+    <li>算出每個化合物的<b>分子量</b>，可以隨時查原子量表。</li>
+    <li>每題有 <b>2 次</b>機會，第一次就答對可獲得加分。</li>
+    <li>按下「開始挑戰」後才會開始倒數。</li>
+  </ul>
+  <button class="big" id="go">開始挑戰</button>
+</section>
+
+<section id="s1" class="hide">
+  <div class="card">
+    <div class="top"><span class="stage" id="stg"></span><span id="timer">5:00</span><span id="sc" class="sub">0 分</span></div>
+    <div class="prog" id="prog"></div>
+  </div>
+  <div class="card q">
+    <div class="qn" id="qn"></div>
+    <div class="zh" id="zh"></div>
+    <div class="alias" id="al"></div>
+    <div class="fm" id="fm"></div>
+    <div class="row"><input id="in" type="text" inputmode="decimal" autocomplete="off" placeholder="分子量"><button id="sub">送出</button></div>
+    <div id="fb" class="hide"></div>
+    <button id="nx" class="hide">下一題</button>
+  </div>
+  <div class="card">
+    <div class="tt">原子量對照表</div>
+    <div class="tbl" id="tbl"></div>
+  </div>
+</section>
+
+<section id="s2" class="hide">
+  <div class="card">
+    <div class="hero" id="rE"></div>
+    <div class="grade" id="rG"></div>
+    <div class="score" id="rS"></div>
+    <div class="stats" id="rT"></div>
+    <div id="wr"></div>
+    <button class="big" id="again">再玩一次</button>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+var Q=[
+["氯化氫","鹽酸的溶質","HCl",36.5,"1 + 35.5"],
+["水","","H<sub>2</sub>O",18,"1×2 + 16"],
+["氯化鈉","食鹽","NaCl",58.5,"23 + 35.5"],
+["二氧化碳","","CO<sub>2</sub>",44,"12 + 16×2"],
+["氫氧化鈉","燒鹼","NaOH",40,"23 + 16 + 1"],
+["硝酸","","HNO<sub>3</sub>",63,"1 + 14 + 16×3"],
+["過氧化氫","雙氧水","H<sub>2</sub>O<sub>2</sub>",34,"1×2 + 16×2"],
+["碳酸鈣","石灰石、蛋殼成分","CaCO<sub>3</sub>",100,"40 + 12 + 16×3"],
+["硫酸","","H<sub>2</sub>SO<sub>4</sub>",98,"1×2 + 32 + 16×4"],
+["乙醇","酒精","C<sub>2</sub>H<sub>5</sub>OH",46,"12×2 + 1×6 + 16"]
+];
+var AW=[["H","氫",1],["C","碳",12],["N","氮",14],["O","氧",16],["Na","鈉",23],["S","硫",32],["Cl","氯",35.5],["Ca","鈣",40]];
+var TOTAL=300,$=function(i){return document.getElementById(i)};
+var idx,score,fix,res,tries,end,tick,done,over;
+
+$("tbl").innerHTML=AW.map(function(a){return "<div><b>"+a[0]+"</b> "+a[2]+"<small>"+a[1]+"</small></div>"}).join("");
+function show(n){["s0","s1","s2"].forEach(function(s,i){$(s).classList.toggle("hide",i!==n)})}
+function fmt(s){s=Math.max(0,s);return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2)}
+function stage(i){return i<3?"暖身":i<7?"進階":"挑戰"}
+function plain(h){return h.replace(/<sub>(\d)<\/sub>/g,function(m,d){return "₀₁₂₃₄₅₆₇₈₉".charAt(+d)})}
+function bar(){
+  $("prog").innerHTML=Q.map(function(_,i){var c=res[i]===1?"ok":res[i]===0?"bad":"";if(i===idx&&!over)c+=" cur";return "<i class='"+c+"'></i>"}).join("");
+  $("sc").textContent=score+" 分";
+}
+function start(){
+  idx=0;score=0;res=[];tries=0;over=false;
+  end=Date.now()+TOTAL*1000;
+  show(1);load();
+  clearInterval(tick);tick=setInterval(loop,250);loop();
+}
+function loop(){
+  var left=Math.ceil((end-Date.now())/1000);
+  $("timer").textContent=fmt(left);
+  $("timer").classList.toggle("low",left<=60);
+  if(left<=0)finish();
+}
+function load(){
+  var q=Q[idx];tries=0;done=false;
+  $("stg").textContent=stage(idx);
+  $("qn").textContent="第 "+(idx+1)+" 關／共 10 關";
+  $("zh").textContent=q[0];
+  $("al").textContent=q[1]?"（"+q[1]+"）":"";
+  $("fm").innerHTML=q[2];
+  $("in").value="";$("in").disabled=false;$("sub").disabled=false;
+  $("fb").className="hide";$("nx").className="hide";
+  bar();$("in").focus();
+}
+function proc(q){return q[0]+" "+q[2]+" = "+q[4]+" = <b style='display:inline'>"+q[3]+"</b>"}
+function submit(){
+  if(done||over)return;
+  var v=parseFloat($("in").value.replace(/[^0-9.]/g,""));
+  if(isNaN(v)){$("in").focus();return}
+  var q=Q[idx],fb=$("fb");tries++;
+  if(Math.abs(v-q[3])<0.001){
+    var first=tries===1;score+=first?15:10;res[idx]=1;
+    fb.className="ok";fb.innerHTML="<b>答對了！"+(first?"第一次就對，額外加 5 分！":"")+"</b><div class='p'>"+proc(q)+"</div>";
+    lock();
+  }else if(tries<2){
+    fb.className="bad";fb.innerHTML="<b>再想想看，還有 1 次機會。</b><div class='p'>提示：先數出每種原子的個數，再乘上原子量。</div>";
+    $("in").select();
+  }else{
+    res[idx]=0;
+    fb.className="bad";fb.innerHTML="<b>這題的答案是 "+q[3]+"。</b><div class='p'>"+proc(q)+"</div>";
+    lock();
+  }
+  bar();
+}
+function lock(){
+  done=true;$("in").disabled=true;$("sub").disabled=true;
+  $("nx").textContent=idx===9?"看結果":"下一題";$("nx").className="";$("nx").focus();
+}
+function next(){if(over)return;if(idx===9){finish();return}idx++;load()}
+function finish(){
+  if(over)return;over=true;clearInterval(tick);
+  var left=Math.max(0,Math.ceil((end-Date.now())/1000));
+  var ok=res.filter(function(r){return r===1}).length;
+  var bonus=ok===10?Math.floor(left/10):0;
+  var total=score+bonus;
+  var g=ok>=9?["🥇","化學大師"]:ok>=7?["🥈","實驗高手"]:ok>=5?["🥉","實習研究員"]:["🌱","繼續加油"];
+  $("rE").textContent=g[0];$("rG").textContent=g[1];
+  $("rS").textContent=total+" 分";
+  $("rT").innerHTML="<span>答對 <b>"+ok+"</b>／10 題</span><span>剩餘時間 <b>"+fmt(left)+"</b></span>"+(bonus?"<span>時間加分 <b>+"+bonus+"</b></span>":"");
+  var w=Q.map(function(q,i){return res[i]===1?"":"<div class='wr'>第 "+(i+1)+" 關　"+proc(q)+(res[i]===undefined?"　<span class='sub'>（未作答）</span>":"")+"</div>"}).join("");
+  $("wr").innerHTML=w?"<div class='tt' style='margin-top:14px'>需要再練習的題目</div>"+w:"<p style='text-align:center;font-size:18px'>全部答對，太厲害了！🎉</p>";
+  show(2);window.scrollTo(0,0);
+}
+$("go").onclick=start;$("again").onclick=start;$("sub").onclick=submit;$("nx").onclick=next;
+document.addEventListener("keydown",function(e){
+  if(e.key!=="Enter"||over||$("s1").classList.contains("hide"))return;
+  e.preventDefault();
+  if(done)next();else submit();
+});
+$("in").addEventListener("input",function(){this.value=this.value.replace(/[^0-9.]/g,"")});
+})();
+</script>
+</body>
+</html>
